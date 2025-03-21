@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react'
+import './styles/main.less'
+import { Filters } from './components/Filters'
+import { fetchDebts } from './services/debtService'
+import { Debt } from './types/debt'
+import { DebtTable } from './components/DebtTable'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+	const [sortColumn, setSortColumn] = useState<keyof Debt>('Name')
+	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+	const [filteredDebts, setFilteredDebts] = useState<Debt[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	useEffect(() => {
+		const fetchData = async () => {
+			const fetchedDebts = await fetchDebts()
+			setFilteredDebts(fetchedDebts)
+		}
+
+		fetchData()
+	}, [])
+
+	const handleSort = (column: keyof Debt) => {
+		const newDirection = sortColumn === column && sortDirection === 'asc' ? 'desc' : 'asc'
+		setSortColumn(column)
+		setSortDirection(newDirection)
+
+		const sortedDebts = [...filteredDebts].sort((a, b) => {
+			const aValue = a[column as keyof Debt]
+			const bValue = b[column as keyof Debt]
+
+			if (typeof aValue === 'number' && typeof bValue === 'number') {
+				return newDirection === 'asc' ? aValue - bValue : bValue - aValue
+			}
+
+			if (typeof aValue === 'string' && typeof bValue === 'string') {
+				return newDirection === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue)
+			}
+
+			return 0
+		})
+
+		setFilteredDebts(sortedDebts)
+	}
+
+	return (
+		<div className='app'>
+			<header className='bg-primary'>
+				<Filters setFilteredDebts={setFilteredDebts} setIsLoading={setIsLoading} />
+			</header>
+			<DebtTable debts={filteredDebts} onSort={handleSort} sortColumn={sortColumn} sortDirection={sortDirection} isLoading={isLoading}/>
+		</div>
+	)
 }
 
 export default App

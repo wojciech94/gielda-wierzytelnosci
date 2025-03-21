@@ -1,0 +1,142 @@
+@font-family: 'Poppins', sans-serif;
+@primary: #003054;
+@danger: #e40321;
+@darkDanger: #b40320;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: @font-family;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+header {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	padding: 2rem;
+}
+
+button {
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+	background: transparent;
+	border: none;
+}
+
+.button-group {
+	display: flex;
+	justify-content: flex-start;
+	align-items: stretch;
+	height: 50px;
+
+	&__button {
+		display: inline-block;
+		text-align: center;
+		cursor: pointer;
+		background-color: @danger;
+		color: white;
+		padding: 8px 32px;
+		font-size: 14px;
+		transition: all 0.3s ease;
+
+		&:hover {
+			background-color: @darkDanger;
+		}
+	}
+
+	&__input {
+		flex: 1 1 0;
+		padding: 8px 16px;
+		font-size: 14px;
+		border: 1px solid #ccc;
+		max-width: 300px;
+	}
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+th,
+td {
+	padding: 8px;
+	text-align: left;
+	border: 1px solid #ddd;
+}
+
+th {
+	background-color: #f4f4f4;
+	cursor: pointer;
+}
+
+th:hover {
+	background-color: #e0e0e0;
+}
+
+input {
+	all: unset;
+	display: inline-block;
+	text-align: left;
+	user-select: none;
+}
+
+input {
+	font-family: inherit;
+	font-size: 16px;
+	background-color: #fff;
+	color: #333;
+	padding: 10px 15px;
+	border: 1px solid #ccc;
+	transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+	outline: none;
+	border-color: #007bff;
+}
+
+.text-white {
+	color: white;
+}
+
+.flex {
+	display: flex;
+}
+
+.bg-primary {
+	background-color: @primary;
+}
+
+.bg-danger {
+	background-color: @danger;
+}
+
+.placeholder {
+	height: 40px;
+	background-color: #eee;
+	border-bottom: 1px solid #d6d6d6;
+	animation: placeHolderShimmer 2.5s infinite linear;
+	background: linear-gradient(to right, #eeeeee 10%, #dddddd 18%, #eeeeee 33%);
+	background-size: 800px 100px;
+	border-radius: 4px;
+	margin: 0 auto;
+}
+
+@keyframes placeHolderShimmer {
+	0% {
+		background-position: -468px 0;
+	}
+	100% {
+		background-position: 468px 0;
+	}
+}
