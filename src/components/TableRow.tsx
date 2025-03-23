@@ -5,16 +5,26 @@ import { formatDate } from '../utils/helpers'
 interface TableRowProps {
 	debt: Debt
 	key: number
-	isLoading: boolean
 }
 
-export const TableRow: React.FC<TableRowProps> = ({ key, debt, isLoading }) => {
+export const TableRow: React.FC<TableRowProps> = ({ debt }) => {
 	return (
-		<tr key={key}>
-			<td>{isLoading ? <div className='placeholder'></div> : debt.Id}</td>
-			<td>{isLoading ? <div className='placeholder'></div> : debt.Name}</td>
-			<td>{isLoading ? <div className='placeholder'></div> : debt.Value}</td>
-			<td>{isLoading ? <div className='placeholder'></div> : formatDate(debt.Date)}</td>
+		<tr>
+			<td>
+				<div className='text-medium'>
+					<div className='text-sm text-sm-normal'>{debt.Name.split(' (')[0]}</div>
+				</div>
+				<div className='d-md-none'>{debt.NIP}</div>
+			</td>
+			<td className='table-col-2 text-center text-medium d-none d-md-table-cell'>
+				<div>{debt.NIP}</div>
+			</td>
+			<td className='table-col-2 text-center text-medium'>
+				<div>{debt.Value}</div>
+			</td>
+			<td className='table-col-3 text-center'>
+				<div>{formatDate(debt.Date)}</div>
+			</td>
 		</tr>
 	)
 }

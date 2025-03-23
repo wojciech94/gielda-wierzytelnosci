@@ -3,6 +3,24 @@
 @danger: #e40321;
 @darkDanger: #b40320;
 
+@dark-background: #1f1f1f;
+@dark-surface: #2a2a2a;
+@dark-text-primary: #ffffff;
+@dark-text-secondary: #808080;
+@dark-border: #404040;
+@dark-border-hover: #606060;
+@dark-shadow: rgba(160, 160, 160, 0.2);
+@dark-placeholder-bg: #666;
+
+@light-background: #f5f5f5;
+@light-surface: #ffffff;
+@light-text-primary: #1a1a1a;
+@light-text-secondary: #666666;
+@light-border: #d1d1d1;
+@light-border-hover: #b0b0b0;
+@light-shadow: rgba(0, 48, 84, 0.2);
+@light-placeholder-bg: #d0d0d0;
+
 * {
 	margin: 0;
 	padding: 0;
@@ -14,13 +32,26 @@ body {
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.5;
+
+	&.dark {
+		background-color: @dark-background;
+		color: @dark-text-primary;
+	}
+
+	&.light {
+		background-color: @light-background;
+		color: @light-text-primary;
+	}
 }
 
 header {
 	height: 200px;
-	display: flex;
 	align-items: center;
-	padding: 2rem;
+	padding: 1rem;
+}
+
+.d-none {
+	display: none;
 }
 
 button {
@@ -31,20 +62,107 @@ button {
 	border: none;
 }
 
+.theme-toggle-button {
+	padding: 8px;
+	border-radius: 12px;
+	background-color: #e5e7eb;
+	color: #000;
+	transition: background-color 0.3s, color 0.3s;
+	border: none;
+	cursor: pointer;
+	align-self: flex-start;
+}
+
+.theme-toggle-button:hover {
+	background-color: #d1d5db;
+}
+
+.dark .theme-toggle-button {
+	background-color: #ffffff;
+	color: #000;
+}
+
+.dark .theme-toggle-button:hover {
+	background-color: #f3f4f6;
+}
+
+input {
+	display: inline-block;
+	font-family: inherit;
+	font-size: 16px;
+	padding: 4px 8px;
+	width: 100%;
+	border-radius: 4px;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+
+	.dark & {
+		background-color: @dark-surface;
+		color: @dark-text-primary;
+		border: 1px solid @dark-border;
+	}
+
+	.light & {
+		background-color: @light-surface;
+		color: @light-text-primary;
+		border: 1px solid @light-border;
+	}
+
+	&:hover {
+		.dark & {
+			border-color: @dark-border-hover;
+			background-color: darken(@dark-surface, 5%);
+		}
+		.light & {
+			border-color: @light-border-hover;
+			background-color: darken(@light-surface, 2%);
+		}
+	}
+
+	&:focus {
+		outline: none;
+		.dark & {
+			border-color: @dark-border-hover;
+			box-shadow: 0 0 0 3px @dark-shadow;
+			background-color: darken(@dark-surface, 5%);
+		}
+		.light & {
+			border-color: @dark-border-hover;
+			box-shadow: 0 0 0 3px @light-shadow;
+			background-color: darken(@light-surface, 2%);
+		}
+	}
+
+	&::placeholder {
+		.dark & {
+			color: @dark-text-secondary;
+		}
+		.light & {
+			color: @light-text-secondary;
+		}
+		opacity: 1;
+	}
+}
+
 .button-group {
 	display: flex;
 	justify-content: flex-start;
 	align-items: stretch;
 	height: 50px;
+	width: 100%;
+	max-width: 700px;
 
 	&__button {
 		display: inline-block;
 		text-align: center;
 		cursor: pointer;
 		background-color: @danger;
-		color: white;
-		padding: 8px 32px;
+		color: @dark-text-primary;
+		padding: 4px 16px;
+		border-top-right-radius: 4px;
+		border-bottom-right-radius: 4px;
 		font-size: 14px;
+		letter-spacing: 0.5px;
 		transition: all 0.3s ease;
 
 		&:hover {
@@ -53,64 +171,175 @@ button {
 	}
 
 	&__input {
-		flex: 1 1 0;
-		padding: 8px 16px;
-		font-size: 14px;
-		border: 1px solid #ccc;
-		max-width: 300px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
 	}
 }
 
 table {
 	width: 100%;
 	border-collapse: collapse;
-	margin-top: 20px;
+	font-family: inherit;
+
+	.dark & {
+		background-color: @dark-surface;
+		color: @dark-text-primary;
+	}
+
+	.light & {
+		background-color: @light-surface;
+		color: @light-text-primary;
+	}
 }
 
 th,
 td {
-	padding: 8px;
+	padding: 4px;
 	text-align: left;
-	border: 1px solid #ddd;
+	border: 1px solid;
+	font-size: 0.825rem;
+	min-height: 50px;
+
+	transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+
+	.dark & {
+		border-color: @dark-border;
+	}
+
+	.light & {
+		border-color: @light-border;
+	}
+}
+
+th:first-child,
+td:first-child {
+	padding-left: 6px;
 }
 
 th {
-	background-color: #f4f4f4;
 	cursor: pointer;
+	font-weight: 600;
+	text-transform: uppercase;
+
+	.dark & {
+		background-color: @dark-surface;
+		color: @dark-text-primary;
+	}
+
+	.light & {
+		background-color: #e8e8e8;
+		color: @light-text-primary;
+	}
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.1);
+	}
 }
 
-th:hover {
-	background-color: #e0e0e0;
+tr {
+	transition: background-color 0.3s ease-in-out;
+
+	&:nth-child(even) {
+		.dark & {
+			background-color: @dark-surface;
+		}
+		.light & {
+			background-color: darken(@light-background, 5%);
+		}
+	}
+
+	&:nth-child(odd) {
+		.dark & {
+			background-color: lighten(@dark-surface, 5%);
+		}
+		.light & {
+			background-color: @light-background;
+		}
+	}
+
+	&:hover {
+		.dark & {
+			background-color: lighten(@dark-surface, 8%);
+		}
+		.light & {
+			background-color: darken(@light-surface, 5%);
+		}
+	}
 }
 
-input {
-	all: unset;
-	display: inline-block;
-	text-align: left;
-	user-select: none;
-}
-
-input {
-	font-family: inherit;
-	font-size: 16px;
-	background-color: #fff;
-	color: #333;
-	padding: 10px 15px;
-	border: 1px solid #ccc;
-	transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-input:focus {
+td:focus {
 	outline: none;
-	border-color: #007bff;
+
+	.dark & {
+		border-color: @dark-border-hover;
+		box-shadow: inset 0 0 0 1px @dark-border-hover;
+	}
+
+	.light & {
+		border-color: @primary;
+		box-shadow: inset 0 0 0 1px @primary;
+	}
+}
+
+.w-100 {
+	width: 100%;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-end {
+	text-align: end;
+}
+
+.text-gray {
+	.dark & {
+		color: @dark-text-secondary;
+	}
+	.light & {
+		color: @light-text-secondary;
+	}
 }
 
 .text-white {
-	color: white;
+	color: @dark-text-primary;
+}
+
+.text-sm {
+	font-size: 0.875rem;
+}
+
+.text-lg {
+	font-size: 1.125rem;
+}
+
+.text-medium {
+	font-weight: 500;
+}
+
+.text-semibold {
+	font-weight: 600;
 }
 
 .flex {
 	display: flex;
+}
+
+.flex.gap-1 {
+	gap: 4px;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
+.flex-1 {
+	flex: 1 1 100%;
+}
+
+.align-self-start {
+	align-self: flex-start;
 }
 
 .bg-primary {
@@ -121,22 +350,156 @@ input:focus {
 	background-color: @danger;
 }
 
-.placeholder {
-	height: 40px;
-	background-color: #eee;
-	border-bottom: 1px solid #d6d6d6;
-	animation: placeHolderShimmer 2.5s infinite linear;
-	background: linear-gradient(to right, #eeeeee 10%, #dddddd 18%, #eeeeee 33%);
-	background-size: 800px 100px;
-	border-radius: 4px;
-	margin: 0 auto;
+.toast-container {
+	position: fixed;
+	bottom: 20px;
+	right: 32px;
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
-@keyframes placeHolderShimmer {
+.toast {
+	padding: 12px 24px;
+	border-radius: 4px;
+	font-family: @font-family;
+	font-size: 16px;
+	min-width: 220px;
+	max-width: 340px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	animation: toastAnimation 5s ease forwards;
+
+	&.error {
+		.dark & {
+			background-color: @darkDanger;
+			color: @dark-text-primary;
+			border: 1px solid lighten(@darkDanger, 10%);
+		}
+		.light & {
+			background-color: @danger;
+			color: @dark-text-primary;
+			border: 1px solid darken(@danger, 10%);
+		}
+	}
+}
+
+@keyframes toastAnimation {
 	0% {
-		background-position: -468px 0;
+		transform: translateX(100%);
+		opacity: 0;
+	}
+	10% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+	90% {
+		transform: translateX(0);
+		opacity: 1;
 	}
 	100% {
-		background-position: 468px 0;
+		transform: translateX(100%);
+		opacity: 0;
+	}
+}
+
+.placeholder {
+	height: 24px;
+	border-radius: 4px;
+	animation: pulse 2.5s ease-in-out infinite;
+	background-color: @light-placeholder-bg;
+
+	&.dark {
+		background-color: @dark-placeholder-bg;
+	}
+
+	&.light {
+		background-color: @light-placeholder-bg;
+	}
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 0.5;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.5;
+	}
+}
+
+@media (min-width: 576px) {
+	header {
+		padding: 2rem;
+	}
+
+	input {
+		padding: 8px 16px;
+	}
+
+	th,
+	td {
+		padding: 8px;
+		font-size: 0.95rem;
+	}
+
+	th:first-child,
+	td:first-child {
+		padding-left: 12px;
+	}
+
+	.button-group {
+		&__button {
+			padding: 8px 32px;
+		}
+	}
+
+	.text-sm-normal {
+		font-size: 1rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.d-md-block {
+		display: block;
+	}
+
+	.d-md-table-cell {
+		display: table-cell;
+	}
+
+	.d-md-none {
+		display: none;
+	}
+
+	th,
+	td {
+		padding: 12px;
+		font-size: 1rem;
+	}
+
+	th:first-child,
+	td:first-child {
+		padding-left: 16px;
+	}
+
+	th {
+		.text-md-nowrap {
+			white-space: nowrap;
+		}
+
+		&.table-col-1 {
+			width: 45px;
+		}
+
+		&.table-col-2 {
+			width: 210px;
+		}
+
+		&.table-col-3 {
+			width: 320px;
+		}
 	}
 }

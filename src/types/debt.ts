@@ -5,3 +5,8 @@ export interface Debt {
 	Date: string
 	NIP: string
 }
+
+export interface DebtResponse {
+	data: Debt[]
+	error: string
+}

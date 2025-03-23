@@ -8,7 +8,7 @@ interface Props {
 export const SearchButton: React.FC<Props> = ({ onClick, className }) => {
 	return (
 		<button onClick={onClick} className={`${className}`}>
-			Szukaj
+			SZUKAJ
 		</button>
 	)
 }

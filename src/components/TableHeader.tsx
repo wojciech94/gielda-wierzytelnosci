@@ -1,8 +1,14 @@
 import React from 'react'
 import { Debt } from '../types/debt'
 
+interface ColumnObject {
+	key: string
+	name: string
+	className: string
+}
+
 interface TableHeaderProps {
-	columns: string[]
+	columns: ColumnObject[]
 	onSort: (column: keyof Debt) => void
 	sortColumn: string
 	sortDirection: 'asc' | 'desc'
@@ -15,12 +21,14 @@ export const TableHeader: React.FC<TableHeaderProps> = ({ columns, onSort, sortC
 
 	return (
 		<thead>
-			<tr>
+			<tr className='text-gray text-medium'>
 				{columns.map(column => (
-					<th key={column} onClick={() => handleSort(column as keyof Debt)} style={{ cursor: 'pointer' }}>
-						{column}
-						{/* Dodanie ikony wskazującej kierunek sortowania */}
-						{sortColumn === column && <span>{sortDirection === 'asc' ? ' 🔼' : ' 🔽'}</span>}
+					<th className={column.className} key={column.key} onClick={() => handleSort(column.key as keyof Debt)}>
+						<div>
+							{column.name}
+							{column.name === 'Dłużnik' && <span className='d-md-none'>{', NIP'}</span>}
+							{sortColumn === column.key && <span>{sortDirection === 'asc' ? ' ▲' : ' ▼'}</span>}
+						</div>
 					</th>
 				))}
 			</tr>
