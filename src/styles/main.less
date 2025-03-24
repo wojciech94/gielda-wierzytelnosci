@@ -111,11 +111,11 @@ input {
 	&:hover {
 		.dark & {
 			border-color: @dark-border-hover;
-			background-color: darken(@dark-surface, 5%);
+			background-color: #242424;
 		}
 		.light & {
 			border-color: @light-border-hover;
-			background-color: darken(@light-surface, 2%);
+			background-color: #f2f2f2;
 		}
 	}
 
@@ -124,12 +124,12 @@ input {
 		.dark & {
 			border-color: @dark-border-hover;
 			box-shadow: 0 0 0 3px @dark-shadow;
-			background-color: darken(@dark-surface, 5%);
+			background-color: #242424;
 		}
 		.light & {
 			border-color: @dark-border-hover;
 			box-shadow: 0 0 0 3px @light-shadow;
-			background-color: darken(@light-surface, 2%);
+			background-color: #f2f2f2;
 		}
 	}
 
@@ -244,13 +244,13 @@ tr {
 			background-color: @dark-surface;
 		}
 		.light & {
-			background-color: darken(@light-background, 5%);
+			background-color: #ebebeb;
 		}
 	}
 
 	&:nth-child(odd) {
 		.dark & {
-			background-color: lighten(@dark-surface, 5%);
+			background-color: #313131;
 		}
 		.light & {
 			background-color: @light-background;
@@ -259,10 +259,10 @@ tr {
 
 	&:hover {
 		.dark & {
-			background-color: lighten(@dark-surface, 8%);
+			background-color: #383838;
 		}
 		.light & {
-			background-color: darken(@light-surface, 5%);
+			background-color: #ebebeb;
 		}
 	}
 }
@@ -374,12 +374,12 @@ td:focus {
 		.dark & {
 			background-color: @darkDanger;
 			color: @dark-text-primary;
-			border: 1px solid lighten(@darkDanger, 10%);
+			border: 1px solid @danger;
 		}
 		.light & {
 			background-color: @danger;
 			color: @dark-text-primary;
-			border: 1px solid darken(@danger, 10%);
+			border: 1px solid @darkDanger;
 		}
 	}
 }

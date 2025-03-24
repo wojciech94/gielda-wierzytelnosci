@@ -25,9 +25,9 @@ export const TableHeader: React.FC<TableHeaderProps> = ({ columns, onSort, sortC
 				{columns.map(column => (
 					<th className={column.className} key={column.key} onClick={() => handleSort(column.key as keyof Debt)}>
 						<div>
+							{sortColumn === column.key && <span>{sortDirection === 'asc' ? '▲ ' : '▼ '}</span>}
 							{column.name}
 							{column.name === 'Dłużnik' && <span className='d-md-none'>{', NIP'}</span>}
-							{sortColumn === column.key && <span>{sortDirection === 'asc' ? ' ▲' : ' ▼'}</span>}
 						</div>
 					</th>
 				))}
